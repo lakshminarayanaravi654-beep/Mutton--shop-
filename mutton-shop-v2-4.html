@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Mutton Shop</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    color: #222;
+}
+
+header {
+    background: #b71c1c;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+}
+
+header p {
+    margin-top: 5px;
+}
+
+nav {
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 5px;
+    box-shadow: 0 2px 8px #bbb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav button {
+    border: none;
+    background: none;
+    color: #b71c1c;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+section {
+    padding: 20px;
+}
+
+.section-title {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+}
+
+.product {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px #ccc;
+}
+
+.product img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product h3 {
+    margin-top: 10px;
+}
+
+.price {
+    color: #d32f2f;
+    font-size: 19px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+select,
+input,
+textarea {
+    width: 100%;
+    padding: 11px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.add-btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    background: #b71c1c;
+    color: white;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background: #8e0000;
+}
+
+.box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ccc;
+    margin-bottom: 20px;
+}
+
+.green-btn {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.red-btn {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.blue-btn {
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.cart-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ccc;
+}
+
+.cart-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.total {
+    font-size: 22px;
+    font-weight: bold;
+    color: #b71c1c;
+    margin-top: 15px;
+}
+
+.order-form {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.admin-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ccc;
+}
+
+.admin-product,
+.order {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.admin-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-product img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.order {
+    border-left: 5px solid #b71c1c;
+}
+
+.order h3 {
+    color: #b71c1c;
+}
+
+.order p {
+    margin: 5px 0;
+}
+
+.status-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.status-row button {
+    flex: 1;
+    min-width: 90px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+}
+
+.status-pending { background: #f9a825; }
+.status-confirmed { background: #1565c0; }
+.status-delivered { background: #2e7d32; }
+.status-completed { background: #6a1b9a; }
+
+.login {
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 7px #ccc;
+}
+
+.stat h2 {
+    color: #b71c1c;
+    margin-top: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+.wholesale {
+    background: #fff3cd;
+    color: #856404;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+@media(max-width:600px) {
+    nav button {
+        font-size: 12px;
+    }
+
+    .products {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .product img {
+        height: 110px;
+    }
+
+    .admin-product {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🥩 Fresh Mutton Shop</h1>
+    <p>Fresh • Quality • Home Delivery</p>
+</header>
+
+<nav>
+    <button onclick="showSection('home')">
+        🏠 Home
+    </button>
+
+    <button onclick="showSection('cart')">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+
+    <button onclick="showSection('orders')">
+        📦 My Orders
+    </button>
+
+    <button onclick="showSection('adminLogin')">
+        🔐 Admin
+    </button>
+</nav>
+
+<section id="home">
+
+    <h2 class="section-title">
+        🥩 Our Mutton Items
+    </h2>
+
+    <div class="products" id="productList"></div>
+
+</section>
+
+<section id="cart" class="hidden">
+
+    <h2 class="section-title">
+        🛒 Shopping Cart
+    </h2>
+
+    <div class="cart-box">
+
+        <div id="cartItems">
+            Your cart is empty.
+        </div>
+
+        <div class="total">
+            Total: ₹<span id="cartTotal">0</span>
+        </div>
+
+        <div class="order-form">
+
+            <h3>📍 Delivery Details</h3>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Customer Name">
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Phone Number">
+
+            <textarea
+                id="customerAddress"
+                placeholder="Delivery Address"
+                rows="4"></textarea>
+
+            <button
+                type="button"
+                class="blue-btn"
+                style="width:100%; margin-bottom:6px;"
+                onclick="useMyLocation()">
+
+                📍 Use My Current Location
+
+            </button>
+
+            <p id="locationStatus" style="font-size:13px; color:#666; margin-bottom:6px;">
+                Location not added
+            </p>
+
+            <iframe
+                id="locationMap"
+                width="100%"
+                height="200"
+                style="border:0; border-radius:7px; display:none;"
+                loading="lazy">
+            </iframe>
+
+            <button
+                id="locationOpenBtn"
+                type="button"
+                class="blue-btn"
+                style="width:100%; margin-bottom:8px; display:none;"
+                onclick="openCustomerLocationInMaps()">
+
+                🗺️ Open in Google Maps
+
+            </button>
+
+            <button
+                class="green-btn"
+                onclick="placeOrder()">
+
+                📦 Place Order
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="orders" class="hidden">
+
+    <h2 class="section-title">
+        📦 My Orders
+    </h2>
+
+    <div id="customerOrders">
+        No orders yet.
+    </div>
+
+</section>
+
+<section id="adminLogin" class="hidden">
+
+    <div class="box login">
+
+        <h2>🔐 Admin Login</h2>
+
+        <input
+            type="text"
+            id="adminUsername"
+            placeholder="Username">
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Password">
+
+        <button
+            class="green-btn"
+            onclick="adminLogin()">
+
+            Login
+
+        </button>
+
+    </div>
+
+</section>
+
+<section id="adminPanel" class="hidden">
+
+    <h2 class="section-title">
+        👨‍💼 Admin Dashboard
+    </h2>
+
+    <div class="dashboard">
+
+        <div class="stat">
+            <p>Products</p>
+            <h2 id="productCount">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>Orders</p>
+            <h2 id="orderCount">0</h2>
+        </div>
+
+        <div class="stat">
+            <p>Total Sales</p>
+            <h2>
+                ₹<span id="salesTotal">0</span>
+            </h2>
+        </div>
+
+    </div>
+
+    <div class="box">
+
+        <h2>➕ Add New Item</h2>
+
+        <input
+            type="text"
+            id="newName"
+            placeholder="Item Name">
+
+        <input
+            type="number"
+            id="newPrice"
+            placeholder="Price per kg">
+
+        <input
+            type="url"
+            id="newImage"
+            placeholder="Image URL">
+
+        <label style="display:flex; align-items:center; gap:8px; margin:6px 0;">
+            <input
+                type="checkbox"
+                id="newWholesale"
+                style="width:auto; margin:0;">
+            Mark as wholesale rate item
+        </label>
+
+        <label style="display:flex; align-items:center; gap:8px; margin:6px 0;">
+            <input
+                type="checkbox"
+                id="newSoldByPiece"
+                style="width:auto; margin:0;">
+            Sold per piece (not by kg)
+        </label>
+
+        <button
+            class="green-btn"
+            onclick="addProduct()">
+
+            Add New Item
+
+        </button>
+
+    </div>
+
+    <div class="admin-box">
+
+        <h2>🛠 Manage Products</h2>
+
+        <div id="adminProducts"></div>
+
+    </div>
+
+    <div class="admin-box">
+
+        <h2>📋 Customer Orders</h2>
+
+        <div id="adminOrders"></div>
+
+    </div>
+
+    <button
+        class="red-btn"
+        onclick="adminLogout()"
+        style="margin-top:20px;">
+
+        Logout
+
+    </button>
+
+</section>
+
+<script>
+
+let defaultProducts = [
+
+    {
+        id: 1,
+        name: "Mutton",
+        price: 600,
+        image:
+        "https://images.unsplash.com/photo-1603048297172-c92544798d5a"
+    },
+
+    {
+        id: 2,
+        name: "Goat Head",
+        price: 750,
+        image:
+        "https://images.unsplash.com/photo-1604503468506-a8da13d82791"
+    },
+
+    {
+        id: 3,
+        name: "Boiled Blood",
+        price: 100,
+        image:
+        "https://images.unsplash.com/photo-1544025162-d76694265947"
+    },
+
+    {
+        id: 4,
+        name: "Goat Legs",
+        price: 650,
+        image:
+        "https://images.unsplash.com/photo-1603048297172-c92544798d5a",
+        unit: "piece"
+    },
+
+    {
+        id: 5,
+        name: "Stomach / Boti",
+        price: 660,
+        image:
+        "https://images.unsplash.com/photo-1604503468506-a8da13d82791",
+        wholesale: true
+    }
+
+];
+
+const PRODUCT_VERSION = "3";
+
+let savedVersion =
+    localStorage.getItem("productVersion");
+
+let products;
+
+if (savedVersion !== PRODUCT_VERSION) {
+
+    products = defaultProducts;
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+    localStorage.setItem(
+        "productVersion",
+        PRODUCT_VERSION
+    );
+
+} else {
+
+    products =
+        JSON.parse(
+            localStorage.getItem("products")
+        ) || defaultProducts;
+}
+
+let orders =
+    JSON.parse(
+        localStorage.getItem("orders")
+    ) || [];
+
+let cart = [];
+
+let customerLocation = null;
+
+/* GET CUSTOMER LOCATION */
+
+function useMyLocation() {
+
+    let status = document.getElementById("locationStatus");
+    let map = document.getElementById("locationMap");
+
+    if (!navigator.geolocation) {
+
+        status.innerText =
+            "Geolocation is not supported by this browser.";
+
+        map.style.display = "none";
+
+        return;
+    }
+
+    status.innerText = "Getting your location...";
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+
+            customerLocation = { lat: latitude, lng: longitude };
+
+            status.innerHTML =
+                "✅ Location added — Latitude: " + latitude.toFixed(5) +
+                ", Longitude: " + longitude.toFixed(5);
+
+            map.src =
+                "https://www.google.com/maps?q=" + latitude + "," + longitude + "&output=embed";
+
+            map.style.display = "block";
+
+            document.getElementById("locationOpenBtn").style.display = "block";
+
+        },
+
+        function(error) {
+
+            customerLocation = null;
+
+            status.innerText =
+                "Unable to get your location. Please allow location permission, or just type your address.";
+
+            map.style.display = "none";
+
+            document.getElementById("locationOpenBtn").style.display = "none";
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
+
+    );
+
+}
+
+function openCustomerLocationInMaps() {
+
+    if (!customerLocation) {
+
+        alert("Get your location first.");
+
+        return;
+    }
+
+    window.open(
+        "https://www.google.com/maps?q=" + customerLocation.lat + "," + customerLocation.lng,
+        "_blank"
+    );
+
+}
+
+function saveProducts() {
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+}
+
+function saveOrders() {
+
+    localStorage.setItem(
+        "orders",
+        JSON.stringify(orders)
+    );
+
+}
+
+/* SHOW SECTION */
+
+function showSection(id) {
+
+    let sections = [
+        "home",
+        "cart",
+        "orders",
+        "adminLogin",
+        "adminPanel"
+    ];
+
+    sections.forEach(sectionId => {
+
+        document
+            .getElementById(sectionId)
+            .classList.add("hidden");
+
+    });
+
+    document
+        .getElementById(id)
+        .classList.remove("hidden");
+
+    if (id === "orders") {
+        displayCustomerOrders();
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function displayProducts() {
+
+    let list =
+        document.getElementById(
+            "productList"
+        );
+
+    list.innerHTML = "";
+
+    products.forEach(product => {
+
+        let selectId =
+            "qty-" + product.id;
+
+        let wholesaleText = "";
+
+        if (product.wholesale) {
+
+            wholesaleText = `
+                <span class="wholesale">
+                    Wholesale Rate
+                </span>
+            `;
+
+        }
+
+        let soldByPiece = product.unit === "piece";
+
+        let priceLabel = soldByPiece
+            ? `₹${product.price} / piece`
+            : `₹${product.price} / kg`;
+
+        let optionsHtml = soldByPiece
+            ? `
+                <option value="1">1 piece</option>
+                <option value="2">2 pieces</option>
+                <option value="3">3 pieces</option>
+                <option value="4">4 pieces</option>
+            `
+            : `
+                <option value="0.25">250 g</option>
+                <option value="0.5">500 g</option>
+                <option value="1">1 kg</option>
+                <option value="2">2 kg</option>
+            `;
+
+        list.innerHTML += `
+
+        <div class="product">
+
+            <img
+                src="${product.image}"
+                alt="${product.name}">
+
+            <h3>
+                ${product.name}
+            </h3>
+
+            <p class="price">
+                ${priceLabel}
+            </p>
+
+            ${wholesaleText}
+
+            <select id="${selectId}">
+
+                ${optionsHtml}
+
+            </select>
+
+            <button
+                class="add-btn"
+                onclick="addToCart(
+                    ${product.id},
+                    '${product.name}',
+                    ${product.price},
+                    '${selectId}',
+                    ${soldByPiece}
+                )">
+
+                🛒 Add to Cart
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById(
+        "productCount"
+    ).innerText = products.length;
+}
+
+function addToCart(
+    id,
+    name,
+    price,
+    selectId,
+    soldByPiece
+) {
+
+    let quantity =
+        parseFloat(
+            document.getElementById(
+                selectId
+            ).value
+        );
+
+    let item = {
+
+        id: id,
+        name: name,
+        price: price,
+        quantity: quantity,
+        unit: soldByPiece ? "piece" : "kg",
+        total: price * quantity
+
+    };
+
+    cart.push(item);
+
+    updateCart();
+
+    alert(
+        name + " added to cart 🛒"
+    );
+
+}
+
+function updateCart() {
+
+    let container =
+        document.getElementById(
+            "cartItems"
+        );
+
+    let total = 0;
+
+    document.getElementById(
+        "cartCount"
+    ).innerText = cart.length;
+
+    if (cart.length === 0) {
+
+        container.innerHTML =
+            "<p>Your cart is empty.</p>";
+
+        document.getElementById(
+            "cartTotal"
+        ).innerText = "0";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    cart.forEach((item, index) => {
+
+        total += item.total;
+
+        container.innerHTML += `
+
+        <div class="cart-item">
+
+            <b>
+                ${item.name}
+            </b>
+
+            <p>
+                Quantity:
+                ${item.quantity} ${item.unit === "piece" ? (item.quantity == 1 ? "piece" : "pieces") : "kg"}
+            </p>
+
+            <p>
+                Price:
+                ₹${item.total.toFixed(0)}
+            </p>
+
+            <button
+                class="red-btn"
+                onclick="removeCart(${index})">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById(
+        "cartTotal"
+    ).innerText =
+        total.toFixed(0);
+
+}
+
+function removeCart(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+
+}
+
+function placeOrder() {
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty!"
+        );
+
+        return;
+    }
+
+    let name =
+        document
+        .getElementById(
+            "customerName"
+        )
+        .value.trim();
+
+    let phone =
+        document
+        .getElementById(
+            "customerPhone"
+        )
+        .value.trim();
+
+    let address =
+        document
+        .getElementById(
+            "customerAddress"
+        )
+        .value.trim();
+
+    if (
+        !name ||
+        !phone ||
+        !address
+    ) {
+
+        alert(
+            "Please enter name, phone number and address."
+        );
+
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+
+        alert(
+            "Please enter a valid 10-digit phone number."
+        );
+
+        return;
+    }
+
+    let total =
+        cart.reduce(
+            (sum, item) =>
+            sum + item.total,
+            0
+        );
+
+    let order = {
+
+        id: Date.now(),
+        customerName: name,
+        phone: phone,
+        address: address,
+        location: customerLocation,
+        items: [...cart],
+        total: total,
+        status: "Pending",
+        date:
+        new Date().toLocaleString(),
+        autoCompleteAt:
+        Date.now() + (3 * 60 * 60 * 1000)
+
+    };
+
+    orders.push(order);
+
+    saveOrders();
+
+    alert(
+        "Order placed successfully! 🎉\n\n" +
+        "Order ID: " +
+        order.id +
+        "\nTotal: ₹" +
+        total.toFixed(0)
+    );
+
+    cart = [];
+
+    document.getElementById(
+        "customerName"
+    ).value = "";
+
+    document.getElementById(
+        "customerPhone"
+    ).value = "";
+
+    document.getElementById(
+        "customerAddress"
+    ).value = "";
+
+    customerLocation = null;
+
+    document.getElementById(
+        "locationStatus"
+    ).innerText = "Location not added";
+
+    document.getElementById(
+        "locationMap"
+    ).style.display = "none";
+
+    document.getElementById(
+        "locationOpenBtn"
+    ).style.display = "none";
+
+    updateCart();
+
+    displayCustomerOrders();
+
+}
+
+function displayCustomerOrders() {
+
+    let container =
+        document.getElementById(
+            "customerOrders"
+        );
+
+    if (orders.length === 0) {
+
+        container.innerHTML =
+            "<p>No orders yet.</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    orders
+    .slice()
+    .reverse()
+    .forEach(order => {
+
+        container.innerHTML += `
+
+        <div class="order">
+
+            <h3>
+                Order #${order.id}
+            </h3>
+
+            <p>
+                📅 ${order.date}
+            </p>
+
+            <p>
+                👤 ${order.customerName}
+            </p>
+
+            <p>
+                📱 ${order.phone}
+            </p>
+
+            <p>
+                📍 ${order.address}
+            </p>
+
+            ${
+                order.location
+                ? `<p>🗺️ <a href="https://maps.google.com/?q=${order.location.lat},${order.location.lng}" target="_blank">View pinned location on map</a></p>`
+                : ""
+            }
+
+            <p>
+                💰 Total:
+                <b>
+                    ₹${order.total.toFixed(0)}
+                </b>
+            </p>
+
+            <p>
+                📦 Status:
+                <b>
+                    ${order.status}
+                </b>
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function adminLogin() {
+
+    let username =
+        document.getElementById(
+            "adminUsername"
+        ).value;
+
+    let password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
+
+    if (
+        username === "admin" &&
+        password === "1234"
+    ) {
+
+        alert(
+            "Admin login successful!"
+        );
+
+        document
+        .getElementById(
+            "adminLogin"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+        document
+        .getElementById(
+            "adminPanel"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+        document.getElementById(
+            "adminUsername"
+        ).value = "";
+
+        document.getElementById(
+            "adminPassword"
+        ).value = "";
+
+        displayAdmin();
+
+    } else {
+
+        alert(
+            "Wrong username or password!"
+        );
+
+    }
+
+}
+
+function adminLogout() {
+
+    document
+    .getElementById(
+        "adminPanel"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+    showSection("home");
+
+}
+
+/* DISPLAY ADMIN (refreshes dashboard stats + both lists) */
+
+function displayAdmin() {
+
+    document.getElementById("productCount").innerText =
+        products.length;
+
+    document.getElementById("orderCount").innerText =
+        orders.length;
+
+    let salesTotal =
+        orders.reduce(
+            (sum, order) => sum + order.total,
+            0
+        );
+
+    document.getElementById("salesTotal").innerText =
+        salesTotal.toFixed(0);
+
+    displayAdminProducts();
+
+    displayAdminOrders();
+
+}
+
+function addProduct() {
+
+    let name =
+        document
+        .getElementById(
+            "newName"
+        )
+        .value.trim();
+
+    let price =
+        parseFloat(
+            document
+            .getElementById(
+                "newPrice"
+            )
+            .value
+        );
+
+    let image =
+        document
+        .getElementById(
+            "newImage"
+        )
+        .value.trim();
+
+    let wholesale =
+        document
+        .getElementById(
+            "newWholesale"
+        ).checked;
+
+    let soldByPiece =
+        document
+        .getElementById(
+            "newSoldByPiece"
+        ).checked;
+
+    if (
+        !name ||
+        !price
+    ) {
+
+        alert(
+            "Enter item name and price."
+        );
+
+        return;
+    }
+
+    if (!image) {
+
+        image =
+        "https://images.unsplash.com/photo-1603048297172-c92544798d5a";
+
+    }
+
+    let product = {
+
+        id: Date.now(),
+        name: name,
+        price: price,
+        image: image,
+        wholesale: wholesale,
+        unit: soldByPiece ? "piece" : "kg"
+
+    };
+
+    products.push(product);
+
+    saveProducts();
+
+    displayProducts();
+
+    displayAdmin();
+
+    document.getElementById(
+        "newName"
+    ).value = "";
+
+    document.getElementById(
+        "newPrice"
+    ).value = "";
+
+    document.getElementById(
+        "newImage"
+    ).value = "";
+
+    document.getElementById(
+        "newWholesale"
+    ).checked = false;
+
+    document.getElementById(
+        "newSoldByPiece"
+    ).checked = false;
+
+    alert(
+        "New product added successfully! ✅"
+    );
+
+}
+
+function displayAdminProducts() {
+
+    let container =
+        document.getElementById(
+            "adminProducts"
+        );
+
+    container.innerHTML = "";
+
+    if (products.length === 0) {
+
+        container.innerHTML =
+            "<p>No products yet.</p>";
+
+        return;
+    }
+
+    products.forEach(product => {
+
+        container.innerHTML += `
+
+        <div class="admin-product" style="flex-direction:column; align-items:stretch;">
+
+            <div style="display:flex; align-items:center; gap:10px;">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}">
+
+                <div style="flex:1">
+
+                    <b>${product.name}</b>
+
+                    <p style="margin:2px 0;">
+                        ₹${product.price}${product.unit === "piece" ? "/piece" : "/kg"}
+                    </p>
+
+                    ${
+                        product.wholesale
+                        ? "<span class='wholesale'>Wholesale Rate</span>"
+                        : ""
+                    }
+
+                </div>
+
+            </div>
+
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd;">
+
+                <label style="font-size:12px; color:#666;">Item Name</label>
+                <input
+                    type="text"
+                    id="editName-${product.id}"
+                    value="${product.name}">
+
+                <label style="font-size:12px; color:#666;">Price</label>
+                <input
+                    type="number"
+                    id="editPrice-${product.id}"
+                    value="${product.price}">
+
+                <label style="font-size:12px; color:#666;">Image URL</label>
+                <input
+                    type="url"
+                    id="editImage-${product.id}"
+                    value="${product.image}">
+
+                <label style="display:flex; align-items:center; gap:8px; margin:6px 0;">
+                    <input
+                        type="checkbox"
+                        id="editWholesale-${product.id}"
+                        style="width:auto; margin:0;"
+                        ${product.wholesale ? "checked" : ""}>
+                    Wholesale rate item
+                </label>
+
+                <label style="display:flex; align-items:center; gap:8px; margin:6px 0;">
+                    <input
+                        type="checkbox"
+                        id="editSoldByPiece-${product.id}"
+                        style="width:auto; margin:0;"
+                        ${product.unit === "piece" ? "checked" : ""}>
+                    Sold per piece (not by kg)
+                </label>
+
+                <div style="display:flex; gap:8px; margin-top:8px;">
+
+                    <button
+                        class="blue-btn"
+                        style="flex:1;"
+                        onclick="editProduct(${product.id})">
+
+                        ✏️ Save Changes
+
+                    </button>
+
+                    <button
+                        class="red-btn"
+                        style="flex:1;"
+                        onclick="deleteProduct(${product.id})">
+
+                        🗑️ Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function editProduct(id) {
+
+    let product =
+        products.find(
+            p => p.id === id
+        );
+
+    if (!product) return;
+
+    let newName =
+        document.getElementById("editName-" + id).value.trim();
+
+    let newPrice =
+        parseFloat(
+            document.getElementById("editPrice-" + id).value
+        );
+
+    let newImage =
+        document.getElementById("editImage-" + id).value.trim();
+
+    let newWholesale =
+        document.getElementById("editWholesale-" + id).checked;
+
+    let newSoldByPiece =
+        document.getElementById("editSoldByPiece-" + id).checked;
+
+    if (!newName) {
+
+        alert(
+            "Item name can't be empty."
+        );
+
+        return;
+    }
+
+    if (
+        isNaN(newPrice) ||
+        newPrice <= 0
+    ) {
+
+        alert(
+            "Please enter a valid price."
+        );
+
+        return;
+    }
+
+    if (!newImage) {
+
+        newImage =
+        "https://images.unsplash.com/photo-1603048297172-c92544798d5a";
+
+    }
+
+    product.name = newName;
+    product.price = newPrice;
+    product.image = newImage;
+    product.wholesale = newWholesale;
+    product.unit = newSoldByPiece ? "piece" : "kg";
+
+    saveProducts();
+
+    displayProducts();
+
+    displayAdmin();
+
+    alert(
+        "Product updated successfully! ✅"
+    );
+
+}
+
+function deleteProduct(id) {
+
+    let product =
+        products.find(
+            p => p.id === id
+        );
+
+    let confirmDelete =
+        confirm(
+            "Delete " +
+            product.name +
+            "?"
+        );
+
+    if (!confirmDelete) {
+
+        return;
+    }
+
+    products =
+        products.filter(
+            p => p.id !== id
+        );
+
+    saveProducts();
+
+    displayProducts();
+
+    displayAdmin();
+
+    alert(
+        "Product deleted."
+    );
+
+}
+
+function displayAdminOrders() {
+
+    let container =
+        document.getElementById(
+            "adminOrders"
+        );
+
+    if (orders.length === 0) {
+
+        container.innerHTML =
+            "<p>No customer orders.</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    orders
+    .slice()
+    .reverse()
+    .forEach(order => {
+
+        let items = "";
+
+        order.items.forEach(item => {
+
+            let unitLabel = item.unit === "piece"
+                ? (item.quantity == 1 ? "piece" : "pieces")
+                : "kg";
+
+            items +=
+                item.name +
+                " - " +
+                item.quantity +
+                unitLabel + " - ₹" +
+                item.total.toFixed(0) +
+                "<br>";
+
+        });
+
+        container.innerHTML += `
+
+        <div class="order">
+
+            <h3>
+                📦 Order #${order.id}
+            </h3>
+
+            <p>
+                📅 ${order.date}
+            </p>
+
+            <p>
+                👤 ${order.customerName}
+            </p>
+
+            <p>
+                📱 ${order.phone}
+            </p>
+
+            <p>
+                📍 ${order.address}
+            </p>
+
+            ${
+                order.location
+                ? `<p>🗺️ <a href="https://maps.google.com/?q=${order.location.lat},${order.location.lng}" target="_blank">View pinned location on map</a></p>`
+                : `<p style="color:#999;">🗺️ No GPS location shared</p>`
+            }
+
+            <p>
+                🥩 <b>Items:</b>
+                <br>
+                ${items}
+            </p>
+
+            <p>
+                💰 Total:
+                <b>₹${order.total.toFixed(0)}</b>
+            </p>
+
+            <p>
+                📦 Status:
+                <b>${order.status}</b>
+            </p>
+
+            <div class="status-row">
+
+                <button
+                    class="status-pending"
+                    onclick="updateStatus(${order.id}, 'Pending')">
+                    Pending
+                </button>
+
+                <button
+                    class="status-confirmed"
+                    onclick="updateStatus(${order.id}, 'Confirmed')">
+                    Confirmed
+                </button>
+
+                <button
+                    class="status-delivered"
+                    onclick="updateStatus(${order.id}, 'Delivered')">
+                    Delivered
+                </button>
+
+                <button
+                    class="status-completed"
+                    onclick="updateStatus(${order.id}, 'Completed')">
+                    Completed
+                </button>
+
+            </div>
+
+            ${
+                order.status !== "Completed" && order.status !== "Delivered"
+                ? `<p style="font-size:12px; color:#999; margin-top:6px;">Auto-completes at ${new Date(order.autoCompleteAt).toLocaleString()}</p>`
+                : ""
+            }
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+/* UPDATE ORDER STATUS */
+
+function updateStatus(id, newStatus) {
+
+    let order =
+        orders.find(o => o.id === id);
+
+    if (!order) {
+        return;
+    }
+
+    order.status = newStatus;
+
+    saveOrders();
+
+    displayAdmin();
+
+    displayCustomerOrders();
+
+}
+
+/* AUTO-COMPLETE ORDERS AFTER 3 HOURS */
+
+function checkAutoComplete() {
+
+    let changed = false;
+
+    let now = Date.now();
+
+    orders.forEach(order => {
+
+        if (
+            order.status !== "Completed" &&
+            order.status !== "Delivered" &&
+            order.autoCompleteAt &&
+            now >= order.autoCompleteAt
+        ) {
+
+            order.status = "Completed";
+
+            changed = true;
+
+        }
+
+    });
+
+    if (changed) {
+
+        saveOrders();
+
+        displayAdmin();
+
+        displayCustomerOrders();
+
+    }
+
+}
+
+/* INIT */
+
+checkAutoComplete();
+
+displayProducts();
+displayCustomerOrders();
+
+// Re-check every minute in case a page stays open past the 3-hour mark
+setInterval(checkAutoComplete, 60 * 1000);
+
+</script>
+
+</body>
+</html>
